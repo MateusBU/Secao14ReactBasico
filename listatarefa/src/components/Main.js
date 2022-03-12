@@ -26,6 +26,22 @@ export default class Main extends Component {
     });
   };
 
+  handleDelete = (e, index) => {
+    const { tarefas } = this.state;
+    const novasTarefas = [...tarefas]; // copia todas as tarefas em novasTarefas
+    novasTarefas.splice(index, 1); // remove o elemento com indice que foi enviado
+
+    this.setState({
+      tarefas: [...novasTarefas], // copia as novasTarefas
+    });
+  };
+
+  handleEdit = (e, index) => {
+    const { tarefas } = this.state;
+    const novasTarefas = [...tarefas];
+    novasTarefas.splice(index, 1);
+  };
+
   handleChange = (e) => { // recebe um evento por causa do input
     this.setState({ // recebe um objeto que eu quero alterar
       novaTarefa: e.target.value, // o target é o input
@@ -55,12 +71,19 @@ export default class Main extends Component {
         </form>
 
         <ul className="tarefas">
-          {tarefas.map((tarefa) => (
+          {tarefas.map((tarefa, index) => (
             <li key={tarefa}>
               {tarefa}
               <span>
-                <FaEdit className="edit" />
-                <FaWindowClose className="delete" />
+                <FaEdit
+                  onClick={(e) => this.handleEdit(e, index)} // index vem do map
+                  className="edit"
+                />
+                <FaWindowClose
+                  onClick={(e) => this.handleDelete(e, index)}
+                  // faz isso,pois tem que enviar o index tbm
+                  className="delete"
+                />
               </span>
             </li>
           ))}
