@@ -13,6 +13,23 @@ export default class Main extends Component {
     index: -1,
   };
 
+  componentDidMount() {
+    const tarefas = JSON.parse(localStorage.getItem('tarefas'));
+
+    if (!tarefas) return;
+
+    this.setState({ tarefas });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { tarefas } = this.state;
+
+    // O prevState é uma variaçaõ anterior de qualque componente
+    if (tarefas === prevState.tarefas) return; // se as tarefas mudaram ou não
+
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));// salvar no storage
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const { tarefas, index } = this.state;
