@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-// FORM         //TAREFAS
-import { FaPlus, FaEdit, FaWindowClose } from 'react-icons/fa';
+import Form from './Form';
+import Tarefas from './Tarefas';
 
 import './Main.css';
 
@@ -88,35 +88,17 @@ export default class Main extends Component {
       <div className="main">
         <h1>Lista de Tarefas</h1>
 
-        <form onSubmit={this.handleSubmit} action="#" className="form">
-          <input
-            onChange={this.handleChange} // handleChange é um método criado por mim
-            type="text"
-            value={novaTarefa}
-          />
-          <button type="submit">
-            <FaPlus />
-          </button>
-        </form>
+        <Form
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          novaTarefa={novaTarefa}
+        />
 
-        <ul className="tarefas">
-          {tarefas.map((tarefa, index) => (
-            <li key={tarefa}>
-              {tarefa}
-              <span>
-                <FaEdit
-                  onClick={(e) => this.handleEdit(e, index)} // index vem do map
-                  className="edit"
-                />
-                <FaWindowClose
-                  onClick={(e) => this.handleDelete(e, index)}
-                  // faz isso,pois tem que enviar o index tbm
-                  className="delete"
-                />
-              </span>
-            </li>
-          ))}
-        </ul>
+        <Tarefas
+          handleEdit={this.handleEdit}
+          handleDelete={this.handleDelete}
+          tarefas={tarefas}
+        />
       </div>
     );
   }
