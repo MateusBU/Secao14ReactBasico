@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './Form.css';
-// FORM
+// FORMs
 import { FaPlus } from 'react-icons/fa';
 
 // eslint-disable-next-line react/prop-types
