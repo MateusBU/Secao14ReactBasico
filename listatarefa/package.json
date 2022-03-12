@@ -37,8 +37,10 @@
     ]
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.5.4",
-    "eslint": "^8.10.0",
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",

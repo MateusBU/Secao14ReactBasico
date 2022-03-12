@@ -12,6 +12,9 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
+    babelOptions: {
+      presets: ['@babel/preset-react'],
+    },
     requireConfigFile: false,
     sourceType: 'module',
   },
@@ -19,7 +22,7 @@ module.exports = {
     'react',
   ],
   rules: {
-    'react/jsx-filename-extension': 'on',
-    'react/state-in-constructor':0,
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/state-in-constructor': 0,
   },
 };
