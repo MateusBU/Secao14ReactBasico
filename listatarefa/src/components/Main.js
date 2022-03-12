@@ -10,20 +10,30 @@ export default class Main extends Component {
     novaTarefa: '',
     tarefas: [
     ],
+    index: -1,
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { tarefas } = this.state;
+    const { tarefas, index } = this.state;
     let { novaTarefa } = this.state;
     novaTarefa = novaTarefa.trim(); // trim remove os espaços
 
     if (tarefas.indexOf(novaTarefa) !== -1) return; // se a novaTarefa já existir não faz nada
     const novasTarefas = [...tarefas]; // copia o array de todas as tarefas em novasTarefas
 
-    this.setState({
-      tarefas: [...novasTarefas, novaTarefa], // copia as novasTarefas e a tarefa nova em tarefas
-    });
+    if (index === -1) { // Significa que eu estou criando e não editando
+      this.setState({
+        tarefas: [...novasTarefas, novaTarefa], // copia as novasTarefas e a tarefa nova em tarefas
+        novaTarefa: '',
+      });
+    } else {
+      novasTarefas[index] = novaTarefa;
+      this.setState({
+        tarefas: [...novasTarefas],
+        index: -1,
+      });
+    }
   };
 
   handleDelete = (e, index) => {
@@ -38,8 +48,11 @@ export default class Main extends Component {
 
   handleEdit = (e, index) => {
     const { tarefas } = this.state;
-    const novasTarefas = [...tarefas];
-    novasTarefas.splice(index, 1);
+
+    this.setState({
+      index,
+      novaTarefa: tarefas[index],
+    });
   };
 
   handleChange = (e) => { // recebe um evento por causa do input
@@ -47,7 +60,6 @@ export default class Main extends Component {
       novaTarefa: e.target.value, // o target é o input
 
     });
-    // qconsole.log(this.state.novaTarefa);
   };
 
   // render é usado para renderizar na pagina, toda classe de componente precisa do render
