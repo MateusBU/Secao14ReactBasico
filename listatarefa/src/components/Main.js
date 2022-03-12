@@ -9,10 +9,21 @@ export default class Main extends Component {
   state = {
     novaTarefa: '',
     tarefas: [
-      'Fazer cafe',
-      'Beber agua',
-      'Dormir',
     ],
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { tarefas } = this.state;
+    let { novaTarefa } = this.state;
+    novaTarefa = novaTarefa.trim(); // trim remove os espaços
+
+    if (tarefas.indexOf(novaTarefa) !== -1) return; // se a novaTarefa já existir não faz nada
+    const novasTarefas = [...tarefas]; // copia o array de todas as tarefas em novasTarefas
+
+    this.setState({
+      tarefas: [...novasTarefas, novaTarefa], // copia as novasTarefas e a tarefa nova em tarefas
+    });
   };
 
   handleChange = (e) => { // recebe um evento por causa do input
@@ -32,7 +43,7 @@ export default class Main extends Component {
       <div className="main">
         <h1>Lista de Tarefas</h1>
 
-        <form action="#" className="form">
+        <form onSubmit={this.handleSubmit} action="#" className="form">
           <input
             onChange={this.handleChange} // handleChange é um método criado por mim
             type="text"
@@ -47,10 +58,10 @@ export default class Main extends Component {
           {tarefas.map((tarefa) => (
             <li key={tarefa}>
               {tarefa}
-              <div>
+              <span>
                 <FaEdit className="edit" />
                 <FaWindowClose className="delete" />
-              </div>
+              </span>
             </li>
           ))}
         </ul>
